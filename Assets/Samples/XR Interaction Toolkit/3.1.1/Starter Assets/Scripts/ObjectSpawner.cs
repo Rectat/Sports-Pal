@@ -9,6 +9,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
     /// </summary>
     public class ObjectSpawner : MonoBehaviour
     {
+        public int spawnedAmount;
         [SerializeField]
         [Tooltip("The camera that objects will face when spawned. If not set, defaults to the main camera.")]
         Camera m_CameraToFace;
@@ -204,9 +205,16 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 }
             }
 
+            if (spawnedAmount > 0)
+            {
+                return false;
+            }
+
             var objectIndex = isSpawnOptionRandomized ? Random.Range(0, m_ObjectPrefabs.Count) : m_SpawnOptionIndex;
-            var newObject = Instantiate(m_ObjectPrefabs[objectIndex]);
-            if (m_SpawnAsChildren)
+
+
+                var newObject = Instantiate(m_ObjectPrefabs[objectIndex]);
+                if (m_SpawnAsChildren)
                 newObject.transform.parent = transform;
 
             newObject.transform.position = spawnPoint;
@@ -231,6 +239,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             }
 
             objectSpawned?.Invoke(newObject);
+            spawnedAmount += 1;
             return true;
         }
     }

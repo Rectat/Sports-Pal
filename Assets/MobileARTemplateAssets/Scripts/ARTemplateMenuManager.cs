@@ -426,6 +426,7 @@ public class ARTemplateMenuManager : MonoBehaviour
         var currentFocusedObject = m_InteractionGroup.focusInteractable;
         if (currentFocusedObject != null)
         {
+            objectSpawner.spawnedAmount -= 1;
             Destroy(currentFocusedObject.transform.gameObject);
         }
     }
